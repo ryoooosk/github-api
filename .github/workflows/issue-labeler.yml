@@ -23,8 +23,8 @@ jobs:
       - name: Add bug label if title contain bug
         if: contains(github.event.issue.title, 'bug')
         run: |
-          gh issue add-label "$ISSUE_NUMBER" bug
+          gh issue edit "$ISSUE_NUMBER" --add-label bug
       - name: Add enhancement label if title contain feat
         if: contains(github.event.issue.title, 'feat') || contains(github.event.issue.title, 'feature')
         run: |
-          gh issue add-label "$ISSUE_NUMBER" enhancement
+          gh issue edit "$ISSUE_NUMBER" --add-label enhancement
