@@ -1,0 +1,30 @@
+name: Issue Labeler
+
+on:
+  issues:
+    types: [opened, edited]
+
+concurrency:
+  group: ${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  issue-labeler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Add bug label if title contain bug
+        if: contains(github.event.issue.title, 'bug')
+        run: |
+          gh issue add-label "$ISSUE_NUMBER" bug
+      - name: Add enhancement label if title contain feat
+        if: contains(github.event.issue.title, 'feat') || contains(github.event.issue.title, 'feature')
+        run: |
+          gh issue add-label "$ISSUE_NUMBER" enhancement
