@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@octokit/types": "^13.6.2",
     "@remix-run/node": "^2.15.0",
     "@remix-run/react": "^2.15.0",
     "@remix-run/serve": "^2.15.0",
